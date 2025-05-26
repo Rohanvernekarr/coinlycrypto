@@ -5,14 +5,14 @@ const axios = require('axios');
 
 const router = express.Router();
 
-// Get user portfolio
+
 router.get('/', auth, async (req, res) => {
   try {
     const portfolio = await Portfolio.find({ userId: req.user._id });
     
     // Get current prices for all coins
     if (portfolio.length > 0) {
-      // Split coin IDs into chunks to avoid hitting API limits
+      
       const chunkSize = 50;
       const coinIds = portfolio.map(item => item.coinId);
       const chunks = [];
@@ -59,19 +59,19 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// Add coin to portfolio
+
 router.post('/add', auth, async (req, res) => {
   try {
     const { coinId, coinName, symbol, amount, purchasePrice } = req.body;
 
-    // Validate required fields
+  
     if (!coinId || !coinName || !symbol || !amount || !purchasePrice) {
       return res.status(400).json({ 
         message: 'All fields are required: coinId, coinName, symbol, amount, purchasePrice' 
       });
     }
 
-    // Validate numeric fields
+    
     if (isNaN(amount) || amount <= 0) {
       return res.status(400).json({ message: 'Amount must be a positive number' });
     }
@@ -79,14 +79,14 @@ router.post('/add', auth, async (req, res) => {
       return res.status(400).json({ message: 'Purchase price must be a positive number' });
     }
 
-    // Check if coin exists in CoinGecko
+    
     try {
       await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}`);
     } catch (error) {
       return res.status(400).json({ message: 'Invalid coin ID' });
     }
 
-    // Check if user already has this coin in portfolio
+    
     const existingItem = await Portfolio.findOne({ 
       userId: req.user._id,
       coinId 
@@ -114,12 +114,11 @@ router.post('/add', auth, async (req, res) => {
   }
 });
 
-// Update portfolio item
 router.put('/:id', auth, async (req, res) => {
   try {
     const { amount, purchasePrice } = req.body;
     
-    // Validate numeric fields
+    
     if (amount !== undefined && (isNaN(amount) || amount <= 0)) {
       return res.status(400).json({ message: 'Amount must be a positive number' });
     }
@@ -146,7 +145,6 @@ router.put('/:id', auth, async (req, res) => {
   }
 });
 
-// Delete portfolio item
 router.delete('/:id', auth, async (req, res) => {
   try {
     const portfolioItem = await Portfolio.findOneAndDelete({

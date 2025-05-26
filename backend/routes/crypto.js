@@ -7,7 +7,7 @@ const router = express.Router();
 // Rate limiting middleware
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  max: 100 
 });
 
 // Apply rate limiting to all routes
@@ -25,7 +25,7 @@ router.get('/trending', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     if (error.response) {
-      // CoinGecko API error
+      
       return res.status(error.response.status).json({ 
         message: 'Error from CoinGecko API', 
         error: error.response.data 
@@ -35,7 +35,7 @@ router.get('/trending', async (req, res) => {
   }
 });
 
-// Get top coins by market cap
+// Get top coins 
 router.get('/top-coins', async (req, res) => {
   try {
     const { page = 1, per_page = 50 } = req.query;

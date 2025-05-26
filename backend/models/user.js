@@ -33,5 +33,5 @@ userSchema.methods.comparePassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };
 
-// Prevent model recompilation error
+
 module.exports = mongoose.models.User || mongoose.model('User', userSchema);
