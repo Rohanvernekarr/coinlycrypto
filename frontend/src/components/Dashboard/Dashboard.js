@@ -109,7 +109,7 @@ function Dashboard() {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>Crypto Dashboard</h1>
+       
         <p>Real-time cryptocurrency prices and market data</p>
       </div>
 

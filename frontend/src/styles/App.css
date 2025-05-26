@@ -422,6 +422,7 @@ body {
 
 .portfolio-card-btn.edit {
   background-color: rgba(79, 70, 229, 0.1);
+ 
   color: var(--primary-color);
 }
 
@@ -567,7 +568,7 @@ body {
   font-size: 1rem;
 }
 
-/* Loading state */
+
 .loading-container {
   display: flex;
   justify-content: center;
@@ -603,7 +604,7 @@ body {
   }
 }
 
-/* Add Coin Form styles */
+
 .add-coin-form {
   background-color: var(--card-background);
   padding: 2rem;
@@ -701,7 +702,7 @@ body {
   color: white;
 }
 
-/* Coin Grid styles */
+
 .coins-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -709,7 +710,7 @@ body {
   margin-top: 2rem;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
   .dashboard {
     padding: 1rem;
@@ -732,7 +733,7 @@ body {
   }
 }
 
-/* Coin Card styles */
+
 .coin-card {
   background-color: var(--card-background);
   border-radius: 1rem;
