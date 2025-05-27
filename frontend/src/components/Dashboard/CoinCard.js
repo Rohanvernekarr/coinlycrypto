@@ -19,8 +19,8 @@ function CoinCard({ coin, onClick, isSelected }) {
       </div>
       
       <div className="coin-price">
-        <span className="price">${coin.current_price.toLocaleString()}</span>
-        <span className={`price-change ${priceChangeClass}`}>
+        <span className="price">₹{coin.current_price.toLocaleString()}</span>
+        <span className={`price-change ₹{priceChangeClass}`}>
           {coin.price_change_percentage_24h >= 0 ? '+' : ''}
           {coin.price_change_percentage_24h.toFixed(2)}%
         </span>
@@ -29,11 +29,11 @@ function CoinCard({ coin, onClick, isSelected }) {
       <div className="coin-stats">
         <div className="stat">
           <span className="stat-label">Market Cap</span>
-          <span className="stat-value">${(coin.market_cap / 1e9).toFixed(2)}B</span>
+          <span className="stat-value">₹{(coin.market_cap / 1e9).toFixed(2)}B</span>
         </div>
         <div className="stat">
           <span className="stat-label">Volume 24h</span>
-          <span className="stat-value">${(coin.total_volume / 1e6).toFixed(2)}M</span>
+          <span className="stat-value">₹{(coin.total_volume / 1e6).toFixed(2)}M</span>
         </div>
       </div>
     </div>

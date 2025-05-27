@@ -81,7 +81,7 @@ router.post('/add', auth, async (req, res) => {
 
     
     try {
-      await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}`);
+      await axios.get(`https://api.coingecko.com/api/v3/coins/₹{coinId}`);
     } catch (error) {
       return res.status(400).json({ message: 'Invalid coin ID' });
     }

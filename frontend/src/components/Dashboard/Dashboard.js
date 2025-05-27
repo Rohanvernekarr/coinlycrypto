@@ -36,12 +36,12 @@ function Dashboard() {
     }
   }, [selectedCoin]);
 
-  // Initial load
+
   useEffect(() => {
     fetchTopCoins();
   }, []);
 
-  // Handle route changes
+  
   useEffect(() => {
     if (location.pathname === '/dashboard') {
       fetchTopCoins();
