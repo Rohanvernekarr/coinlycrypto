@@ -24,29 +24,65 @@ function Dashboard() {
       setLoading(true);
       setError(null);
       const response = await cryptoAPI.getTopCoins();
+      
+      if (!response.data || !Array.isArray(response.data)) {
+        throw new Error('Invalid response from server');
+      }
+      
+      if (response.data.length === 0) {
+        throw new Error('No coins data available');
+      }
+      
       setTopCoins(response.data);
       if (response.data.length > 0 && !selectedCoin) {
         setSelectedCoin(response.data[0]);
       }
     } catch (error) {
       console.error('Error fetching top coins:', error);
-      setError('Failed to load coins. Please try again.');
+      
+      if (error.response?.data?.error?.status?.error_code === 429) {
+        setError('Rate limit exceeded. Please try again in a few minutes.');
+      } else if (error.response?.status === 504) {
+        setError('Request timeout. Please try again.');
+      } else if (error.response?.status === 500) {
+        setError('Server error. Please try again later.');
+      } else if (error.message === 'No coins data available') {
+        setError('No cryptocurrency data is currently available.');
+      } else {
+        setError('Failed to load coins. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
   }, [selectedCoin]);
 
-
   useEffect(() => {
     fetchTopCoins();
-  }, []);
+  }, [fetchTopCoins]);
 
-  
   useEffect(() => {
     if (location.pathname === '/dashboard') {
       fetchTopCoins();
     }
   }, [location.pathname, fetchTopCoins]);
+
+  useEffect(() => {
+    let timer;
+    if (error) {
+      if (error.includes('Rate limit exceeded')) {
+        timer = setTimeout(() => {
+          fetchTopCoins();
+        }, 60000); // Retry after 1 minute
+      } else if (error.includes('timeout') || error.includes('try again')) {
+        timer = setTimeout(() => {
+          fetchTopCoins();
+        }, 5000); // Retry after 5 seconds for timeout errors
+      }
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [error, fetchTopCoins]);
 
   const handleAddCoin = async (e) => {
     e.preventDefault();

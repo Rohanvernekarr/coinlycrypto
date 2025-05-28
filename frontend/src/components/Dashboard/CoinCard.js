@@ -20,7 +20,7 @@ function CoinCard({ coin, onClick, isSelected }) {
       
       <div className="coin-price">
         <span className="price">₹{coin.current_price.toLocaleString()}</span>
-        <span className={`price-change ₹{priceChangeClass}`}>
+        <span className={`price-change ${priceChangeClass}`}>
           {coin.price_change_percentage_24h >= 0 ? '+' : ''}
           {coin.price_change_percentage_24h.toFixed(2)}%
         </span>
