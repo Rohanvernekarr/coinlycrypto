@@ -6,11 +6,11 @@ const router = express.Router();
 
 // Rate limiting middleware
 const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000, 
   max: 100 
 });
 
-// Apply rate limiting to all routes
+
 router.use(apiLimiter);
 
 // Get trending coins
